@@ -77,13 +77,13 @@ jobs:
           npm run build
           
       - name: Archive workflow data
-        run: tar -czf workflow-data.tar.gz $GITHUB_WORKSPACE
+        run: tar -czf ~/workflow-data.tar.gz $GITHUB_WORKSPACE
 
       - name: Upload workflow data as artifact
         uses: actions/upload-artifact@v2
         with:
           name: workflow-data
-          path: ./workflow-data.tar.gz
+          path: ~/workflow-data.tar.gz
 
   deploy:
     runs-on: ubuntu-latest
@@ -109,4 +109,3 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D608E996CF364181A67811DA16126BB0 }}
           package: .
-
