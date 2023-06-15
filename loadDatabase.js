@@ -32,7 +32,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = require("bluebird");
 const uri =
   "mongodb+srv://teamworkout_admin:n5wZ6AJpC4nXogHb@teamworkout.aorqnao.mongodb.net/?retryWrites=true&w=majority";
-
+mongoose.set("strictQuery", false);
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
