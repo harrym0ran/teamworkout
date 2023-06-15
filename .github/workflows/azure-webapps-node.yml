@@ -76,12 +76,6 @@ jobs:
           npm install
           npm run build
           
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v2
-        with:
-          name: node-app
-          path: .
-
       - name: Archive workflow data
         run: tar -czf workflow-data.tar.gz $GITHUB_WORKSPACE
 
@@ -99,10 +93,13 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Download artifact from build job
+      - name: Download workflow data
         uses: actions/download-artifact@v2
         with:
-          name: node-app
+          name: workflow-data
+
+      - name: Extract workflow data
+        run: tar -xzf workflow-data.tar.gz
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
