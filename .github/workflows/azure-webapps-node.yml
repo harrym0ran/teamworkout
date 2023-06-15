@@ -24,7 +24,8 @@ jobs:
           npm run build
 
       - name: Create an archive of the application
-        run: tar -cvzf node-app.tar.gz --exclude=./node_modules .
+        run: tar -cvzf node-app.tar.gz --exclude=./node_modules --exclude=./.git .
+
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
