@@ -436,10 +436,11 @@ app.get("/workouts/:id", function (request, response) {
     });
 });
 
-const server = app.listen(3000, function () {
-  const port = server.address().port;
+const port = process.env.PORT || 8080;
+
+const server = app.listen(port, function () {
   console.log(
-    "Listening at http://localhost:" +
+    "Listening at port:" +
       port +
       " exporting the directory " +
       __dirname

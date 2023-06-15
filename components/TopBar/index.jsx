@@ -12,9 +12,9 @@ import {
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
-const port = process.env.PORT || 3000;
-app.listen(port, function () {
-  console.log("Listening on port " + port);
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
 
 import "./styles.css";
