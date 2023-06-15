@@ -61,10 +61,18 @@ mongoose.set("strictQuery", false);
 //   useUnifiedTopology: true,
 // });
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.MONGODB_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+mongoose.connect(
+  "mongodb+srv://<teamworkout_admin>:<n5wZ6AJpC4nXogHb>@teamworkout.aorqnao.mongodb.net/?retryWrites=true&w=majority",
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+);
 
 // We have the express static module
 // (http://expressjs.com/en/starter/static-files.html) do all the work for us.
