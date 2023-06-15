@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+<head>
+    <title>CS278 Final Project</title>
+</head>
+
+<body>
+    <h1>CS278 TeamWorkout</h1>
+    <p>
+        If you can see this message it means your simple Node.js web server is working!
+    </p>
+    
+    <ul>
+        <li>TeamWorkout - <a href="team-workout.html">team-workout.html</a></li>
+    </ul>
+    <script type="text/javascript">
+        //<![CDATA[
+        // Angular doesn't work using the file protocol and it dies with an obscure error
+        // message.  Since the project's files are accessible using either the file or
+        // http protocols we warn the user if they are not using http.
+        if (window.location.protocol !== 'http:') {
+            var msg = "Project 6 files must be accessed with the http protocol (not from local files)." +
+                "\nUse the URL http://localhost:3000";
+            console.error(msg);
+            alert(msg);
+        }
+            //]]>
+    </script>
+</body>
+
+</html>

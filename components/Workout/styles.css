@@ -1,0 +1,73 @@
+.exerciseView {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  /* max-height: 500px; */
+}
+
+.profileHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.exerciseHeader {
+  display: flex;
+  align-items: stretch;
+  height: auto;
+}
+
+.exerciseImage {
+  width: 70%;
+  height: auto;
+  margin-right: 10px;
+}
+
+.textBox {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  /* Take the remaining space */
+  max-height: 100%;
+  /* Do not exceed the height of the parent */
+  overflow-y: hidden;
+  /* Hide overflow */
+}
+
+.commentList {
+  flex: 1;
+  /* Take up all available space */
+  overflow-y: auto;
+  /* Make it scrollable */
+}
+
+.comment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 5px 0;
+}
+
+.commentForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 40px;
+  width: 100%;
+  padding: 10px;
+}
+
+.exerciseImage {
+  object-fit: cover;
+}
+
+.commentInput {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.submitButton {
+  width: 80px;
+}

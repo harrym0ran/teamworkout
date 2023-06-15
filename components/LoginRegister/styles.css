@@ -1,0 +1,47 @@
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+#title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.division {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.form {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+}
+
+.button {
+  background-color: #7730A4 !important;
+}
