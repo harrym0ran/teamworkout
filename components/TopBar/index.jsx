@@ -12,6 +12,11 @@ import {
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
+const port = process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log("Listening on port " + port);
+});
+
 import "./styles.css";
 
 class TopBar extends React.Component {
@@ -86,7 +91,7 @@ class TopBar extends React.Component {
 
     if (currUser) {
       axios
-        .get(`http://localhost:3000/user/${currUser}`)
+        .get(`/user/${currUser}`)
         .then((response) => {
           this.setState({ user: response.data });
         })

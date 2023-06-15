@@ -102,7 +102,7 @@ class UserExercises extends React.Component {
 
   fetchData(userId) {
     axios
-      .get(`http://localhost:3000/user/${userId}`)
+      .get(`/user/${userId}`)
       .then((response) => {
         this.setState({ user: response.data });
       })
@@ -113,7 +113,7 @@ class UserExercises extends React.Component {
 
   fetchExercises(userId) {
     axios
-      .get(`http://localhost:3000/workouts/${userId}`)
+      .get(`/workouts/${userId}`)
       .then((response) => {
         this.setState({ exercises: response.data });
       })
@@ -124,7 +124,7 @@ class UserExercises extends React.Component {
 
   handleCommentSubmit = (comment, exerciseId) => {
     axios
-      .post(`http://localhost:3000/exerciseComments/${exerciseId}`, {
+      .post(`/exerciseComments/${exerciseId}`, {
         comment: comment,
       })
       .then((response) => {

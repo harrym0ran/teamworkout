@@ -37,7 +37,7 @@ class UserList extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/user/list')
+    axios.get('/user/list')
       .then((response) => {
         this.setState({ users: response.data });
       })

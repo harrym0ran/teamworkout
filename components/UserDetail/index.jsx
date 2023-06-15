@@ -27,7 +27,7 @@ class UserDetail extends React.Component {
 
   fetchData(userId) {
     axios
-      .get(`http://localhost:3000/user/${userId}`)
+      .get(`/user/${userId}`)
       .then((response) => {
         this.setState({ user: response.data });
       })

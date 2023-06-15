@@ -67,7 +67,7 @@ mongoose.set("strictQuery", false);
 // });
 
 mongoose.connect(
-  "mongodb+srv://<teamworkout_admin>:<n5wZ6AJpC4nXogHb>@teamworkout.aorqnao.mongodb.net/?retryWrites=true&w=majority",
+  "mongodb+srv://teamworkout_admin:n5wZ6AJpC4nXogHb@teamworkout.aorqnao.mongodb.net/?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

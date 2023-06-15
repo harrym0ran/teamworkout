@@ -15,18 +15,35 @@
  */
 
 // We use the Mongoose to define the schema stored in MongoDB.
-const mongoose = require("mongoose");
-mongoose.Promise = require("bluebird");
-mongoose.set("strictQuery", false);
+// const mongoose = require("mongoose");
+// mongoose.Promise = require("bluebird");
+// mongoose.set("strictQuery", false);
 // mongoose.connect("mongodb://127.0.0.1/cs142project6", {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
 // });
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.MONGODB_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+const mongoose = require('mongoose');
+mongoose.Promise = require("bluebird");
+const uri =
+  "mongodb+srv://teamworkout_admin:n5wZ6AJpC4nXogHb@teamworkout.aorqnao.mongodb.net/?retryWrites=true&w=majority";
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
+
+// mongoose.connect(
+//   "mongodb+srv://<teamworkout_admin>:<n5wZ6AJpC4nXogHb>@teamworkout.aorqnao.mongodb.net/?retryWrites=true&w=majority",
+//   {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   }
+// );
 
 // Get the magic models we used in the previous projects.
 const cs142models = require("./modelData/teamWorkout.js").cs142models;
@@ -35,7 +52,6 @@ const cs142models = require("./modelData/teamWorkout.js").cs142models;
 const User = require("./schema/user.js");
 const Exercise = require("./schema/exercise.js");
 const SchemaInfo = require("./schema/schemaInfo.js");
-const { title } = require("process");
 
 const versionString = "1.0";
 
