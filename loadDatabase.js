@@ -28,14 +28,19 @@
 //   useUnifiedTopology: true,
 // });
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
-const uri =
-  "mongodb+srv://teamworkout_admin:n5wZ6AJpC4nXogHb@teamworkout.aorqnao.mongodb.net/?retryWrites=true&w=majority";
+
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+const dbHost = process.env.DB_HOST;
+
+const uri = `mongodb+srv://${username}:${password}@${dbHost}/?retryWrites=true&w=majority`;
 mongoose.set("strictQuery", false);
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB Connected...'))
-  .catch(err => console.log(err));
+mongoose
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
 
 // mongoose.connect(
 //   "mongodb+srv://<teamworkout_admin>:<n5wZ6AJpC4nXogHb>@teamworkout.aorqnao.mongodb.net/?retryWrites=true&w=majority",

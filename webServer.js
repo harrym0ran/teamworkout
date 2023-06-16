@@ -43,6 +43,7 @@ const async = require("async");
 
 const express = require("express");
 const app = express();
+const port = process.env.PORT || 3000;
 const path = require("path");
 
 const User = require("./schema/user.js");
@@ -435,8 +436,6 @@ app.get("/workouts/:id", function (request, response) {
       return response.status(200).send(JSON.stringify(exercises));
     });
 });
-
-const port = process.env.PORT || 8080;
 
 const server = app.listen(port, function () {
   console.log(
