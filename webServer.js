@@ -437,6 +437,11 @@ app.get("/workouts/:id", function (request, response) {
     });
 });
 
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "./index.html"));
+});
+
+
 const server = app.listen(port, function () {
   console.log(
     "Listening at port:" +
