@@ -1,36 +1,3 @@
-/**
- * This builds on the webServer of previous projects in that it exports the
- * current directory via webserver listing on a hard code (see portno below)
- * port. It also establishes a connection to the MongoDB named 'cs142project6'.
- *
- * To start the webserver run the command:
- *    node webServer.js
- *
- * Note that anyone able to connect to localhost:portNo will be able to fetch
- * any file accessible to the current user in the current directory or any of
- * its children.
- *
- * This webServer exports the following URLs:
- * /            - Returns a text status message. Good for testing web server
- *                running.
- * /test        - Returns the SchemaInfo object of the database in JSON format.
- *                This is good for testing connectivity with MongoDB.
- * /test/info   - Same as /test.
- * /test/counts - Returns the population counts of the cs142 collections in the
- *                database. Format is a JSON object with properties being the
- *                collection name and the values being the counts.
- *
- * The following URLs need to be changed to fetch there reply values from the
- * database:
- * /user/list         - Returns an array containing all the User objects from
- *                      the database (JSON format).
- * /user/:id          - Returns the User object with the _id of id (JSON
- *                      format).
- * /workouts/:id  - Returns an array with all the exercises of the User (id).
- *                      Each exercise should have all the Comments on the Exercise
- *                      (JSON format).
- */
-
 const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
 
@@ -53,20 +20,10 @@ const processFormBody = multer({ storage: multer.memoryStorage() }).single(
   "uploadedexercise"
 );
 
-// XXX - Your submission should work without this line. Comment out or delete
-// this line for tests and before submission!
 mongoose.set("strictQuery", false);
-// mongoose.connect("mongodb://127.0.0.1/cs142project6", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
+const port = process.env.PORT || 3000;
 
-// mongoose.connect(process.env.MONGODB_URI, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-mongoose.connect(
+mongoose.connect( 
   "mongodb+srv://teamworkout_admin:n5wZ6AJpC4nXogHb@teamworkout.aorqnao.mongodb.net/?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
@@ -74,8 +31,11 @@ mongoose.connect(
   }
 );
 
-// We have the express static module
-// (http://expressjs.com/en/starter/static-files.html) do all the work for us.
+// mongoose.connect(process.env.MONGODB_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
 app.use(express.static(__dirname));
 
 app.get("/", function (request, response) {
@@ -92,7 +52,6 @@ app.get("/logo.png", function (request, response) {
   response.sendFile(logoPath);
 });
 
-
 //Login route
 app.post("/admin/login", function (request, response) {
   let loginName = request.body.l_login_name;
@@ -104,7 +63,7 @@ app.post("/admin/login", function (request, response) {
     return response.status(400).send("Missing username");
   }
 
-  User.findOne({ login_name: loginName }, function (err, user) {
+  return User.findOne({ login_name: loginName }, function (err, user) {
     if (err || !user) {
       return response.status(400).send("Invalid account");
     }
@@ -128,7 +87,7 @@ app.post("/admin/logout", function (request, response) {
     return response.status(400).send("Not logged in");
   }
 
-  request.session.destroy(function (err) {
+  return request.session.destroy(function (err) {
     if (err) {
       return response.status(500).send("Failed to logout");
     }
@@ -147,7 +106,7 @@ app.use(function (request, response, next) {
   ) {
     return response.status(401).send("Unauthorized");
   }
-  next();
+  return next();
 });
 
 //User registration route
@@ -178,7 +137,7 @@ app.post("/user", function (request, response) {
     return response.status(400).send(errorMessage);
   }
 
-  User.findOne({ login_name: r_login_name }, function (err, user) {
+  return User.findOne({ login_name: r_login_name }, function (err, user) {
     if (err) {
       return response.status(500).send("Server error");
     }
@@ -195,7 +154,7 @@ app.post("/user", function (request, response) {
       coach: r_coach,
     });
 
-    newUser.save(function () {
+    return newUser.save(function () {
       if (err) {
         return response.status(500).send("Error registering new user");
       }
@@ -224,7 +183,7 @@ app.post("/exerciseComments/:exercise_id", function (request, response) {
     date_time: new Date().toISOString(),
   };
 
-  Exercise.findByIdAndUpdate(
+  return Exercise.findByIdAndUpdate(
     exerciseId,
     { $push: { comments: comment } },
     { new: true }
@@ -247,8 +206,8 @@ app.post("/workouts/new", function (request, response) {
     const timestamp = new Date().valueOf();
     const filename = "U" + String(timestamp) + request.file.originalname;
 
-    fs.writeFile("./images/" + filename, request.file.buffer, function (err) {
-      if (err) {
+    return fs.writeFile("./images/" + filename, request.file.buffer, function (writeErr) {
+      if (writeErr) {
         return response.status(500).send("Error saving file.");
       }
 
@@ -260,8 +219,8 @@ app.post("/workouts/new", function (request, response) {
         notes: request.body.notes,
       });
 
-      newExercise.save(function (err) {
-        if (err) {
+      return newExercise.save(function (saveErr) {
+        if (saveErr) {
           return response.status(500).send("Error uploading exercise.");
         } else {
           return response
@@ -375,7 +334,7 @@ app.get("/user/:id", function (request, response) {
     return response.status(400).send("Invalid ID");
   }
 
-  User.findOne({ _id: id })
+  return User.findOne({ _id: id })
     .select("-__v -login_name -password")
     .exec(function (err, user) {
       if (err) {
@@ -401,7 +360,7 @@ app.get("/workouts/:id", function (request, response) {
     return response.status(400).send("Invalid ID");
   }
 
-  Exercise.find({ user_id: id })
+  return Exercise.find({ user_id: id })
     .select("-__v")
     .populate({
       path: "comments",
@@ -434,10 +393,10 @@ app.get("/workouts/:id", function (request, response) {
     });
 });
 
-const server = app.listen(3000, function () {
-  const port = server.address().port;
+app.listen(port, function () {
+  //const port = server.address().port;
   console.log(
-    "Listening at http://localhost:" +
+    "Listening at " +
       port +
       " exporting the directory " +
       __dirname

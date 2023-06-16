@@ -12,11 +12,6 @@ import {
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
-const port = process.env.PORT || 3000;
-app.listen(port, function () {
-  console.log("Listening on port " + port);
-});
-
 import "./styles.css";
 
 class TopBar extends React.Component {
